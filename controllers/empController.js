@@ -10,7 +10,7 @@ const listEmployees=async(req,res,next)=>{
 
         const skip=(page-1)*lim;
 
-        const query = `SELECT employee.*,primary_contact.name as p_name,primary_contact.phone as p_phone,primary_contact.relationship as p_relationship,secondary_contact.name as s_name,secondary_contact.phone as s_phone,secondary_contact.relationship as s_relationship FROM employee INNER JOIN primary_contact on employee.e_id=primary_contact.emp_id INNER JOIN secondary_contact on employee.e_id=secondary_contact.emp_id WHERE e_id>${skip} AND e_id<=${page*lim}`;
+        const query = `SELECT employee.*,primary_contact.name as p_name,primary_contact.phone as p_phone,primary_contact.relationship as p_relationship,secondary_contact.name as s_name,secondary_contact.phone as s_phone,secondary_contact.relationship as s_relationship FROM employee INNER JOIN primary_contact on employee.e_id=primary_contact.emp_id INNER JOIN secondary_contact on employee.e_id=secondary_contact.emp_id LIMIT ${(page-1)*lim},${lim}`;
         const results = await selectQuery(connection,query);
 
 
